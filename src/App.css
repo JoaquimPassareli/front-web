@@ -1,0 +1,148 @@
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+	height: 6em;
+	padding: 1.5em;
+	will-change: filter;
+	transition: filter 300ms;
+}
+
+.logo:hover {
+	filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+	filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	a:nth-of-type(2) .logo {
+		animation: logo-spin infinite 20s linear;
+	}
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 4px;
+}
+
+.card label {
+	font-size: 14px;
+	color: #ccc;
+	width: 220px;
+	text-align: left;
+}
+
+.card input {
+	width: 220px;
+}
+
+.card-pessoa {
+	border: 1px solid #ffffff80;
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	margin-top: 15px;
+	gap: 10px;
+	width: 100%;
+	max-width: 320px;
+	border-radius: 8px;
+	background: #ffffff08;
+	backdrop-filter: blur(4px);
+}
+
+.card-pessoa p {
+	margin: 4px 0;
+}
+
+.card-content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	width: 100%;
+}
+
+.card-content input {
+	width: 100%;
+	padding: 6px;
+	border-radius: 4px;
+	border: 1px solid #ffffff30;
+	background: #ffffff10;
+	color: white;
+}
+
+.card-actions {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: 8px;
+	gap: 10px;
+}
+
+.card-actions button {
+	flex: 1;
+}
+
+button {
+	padding: 8px 12px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	background: #111;
+	color: white;
+	transition: 0.2s;
+}
+
+button:hover {
+	background: #333;
+}
+
+.main-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.read-the-docs {
+	color: #888;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 4px;
+}
+
+.form-group label {
+	font-size: 14px;
+	color: #ccc;
+	width: 220px;
+	text-align: left;
+}
+
+.form-group input {
+	width: 220px;
+}
