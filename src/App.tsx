@@ -128,10 +128,22 @@ function AppCarros () {
   const [isUpdate, setIsUpdate] = useState(false);
 
   const salvar = async () => {
-    await axios.post("/carros", form);
-    setForm(emptyCarro);
-    await buscarTodos();
+    if (!form.marca || !form.modelo || !form.cor || form.ano <= 0) {
+      alert("Preencha todos os campos corretamente!");
+      return;
+    }
+
+    try {
+      await axios.post("/carros", form);
+      setForm(emptyCarro);
+      await buscarTodos();
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao cadastrar veiculo");
+    }
   };
+
+
 
   const buscarTodos = async () => {
     const { data } = await axios.get("/carros");
