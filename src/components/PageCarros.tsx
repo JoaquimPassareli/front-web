@@ -112,8 +112,7 @@ function AppCarros () {
           <p>Cor: {c.cor}</p>
 
           <button onClick={() => deletaCarro(c.id)}>Apagar</button>
-          <button onClick={() => { setIsUpdate(true); setForm(c); }}
-          >
+          <button onClick={() => { setIsUpdate(true); setForm(c); }}>
             Editar
 
           </button>
