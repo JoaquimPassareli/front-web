@@ -1,9 +1,10 @@
 export { AppPessoas };
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Pessoa } from "../types/TypesPessoas";
 import { emptyPessoa } from "../types/TypesPessoas";
+
 
 
 function AppPessoas () {
@@ -30,6 +31,10 @@ function AppPessoas () {
       alert("Erro ao buscar pessoas");
     }
   };
+
+  useEffect(() => {
+    buscarTodos();
+  }, []);
 
   const deletaPessoa = async (id: number) => {
     await axios.delete("/pessoas/" + id);
@@ -76,12 +81,72 @@ function AppPessoas () {
         <button onClick={buscarTodos}>Buscar</button>
       </div>
 
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Altura</th>
+            <th>Doc</th>
+            <th>Carros</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {pessoas.map((p) => (
+            <tr key={p.id}>
+              <td>{p.nome}</td>
+              <td>{p.idade}</td>
+              <td>{p.altura} m</td>
+              <td>{p.doc}</td>
+              <td>
+                {p.carros.length > 0 && (
+                  <>
+                    <p>Carros: </p>
+                    {p.carros.map((c) => (
+                      <p key={c.id}>{c.marca} - {c.modelo}</p>
+                    ))}
+                  </>
+                )}
+              </td>
+              <td>
+                <div style={{
+                  display: "flex",
+                  gap: 5,
+
+                }} >
+
+                  <button onClick={() => { setForm(p); setIsUpdate(true); }}>
+                    Editar
+                  </button>
+                  <button onClick={() => deletaPessoa(p.id ?? 0)}>
+                    Deletar
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/*       
       {pessoas.map((p) => (
         <div key={p.doc} className="card-pessoa">
-          <p>Nome: {p.nome}</p>
-          <p>Idade: {p.idade}</p>
-          <p>Altura: {p.altura} m</p>
-          <p>Doc: {p.doc}</p>
+
+          <p>Nome:
+            {p.nome}
+          </p>
+          <p>Idade:
+            {p.idade}
+          </p>
+          <p>Altura:
+            {p.altura} m
+          </p>
+          <p>Doc:
+            {p.doc}
+          </p>
           {p.carros.length > 0 && (
             <>
               <p>Carros: </p>
@@ -92,13 +157,11 @@ function AppPessoas () {
 
           )}
 
-          <button onClick={() => deletaPessoa(p.id!)}>Apagar</button>
-          <button onClick={() => { setIsUpdate(true); setForm(p); }}
-          >
+        
             Editar
           </button>
         </div>
-      ))}
+      ))} */}
     </>
   );
 }
