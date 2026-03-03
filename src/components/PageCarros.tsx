@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import type { Carro } from "../types/TypesCarros";
 import { emptyCarro } from "../types/TypesCarros";
+import Button from "./Button/Index";
 import "./Input/Index";
 import Input from "./Input/Index";
 
@@ -99,18 +100,18 @@ function AppCarros () {
 
 
 
-      <div className="form-actions">
+      <div className="form-actions" style={{ display: "flex", gap: 5 }}>
         {isUpdate ? (
 
-          <button onClick={() => { updateCarro(); setIsUpdate(false); }}>
+          <Button onClick={() => { updateCarro(); setIsUpdate(false); }}>
             Atualizar
-          </button>
+          </Button>
 
         ) : (
-          <button onClick={salvar}>Cadastrar</button>
+          <Button onClick={salvar}>Cadastrar</Button>
         )}
 
-        <button onClick={buscarTodos}>Buscar</button>
+        <Button onClick={buscarTodos}>Buscar</Button>
       </div>
 
       {c.map((c) => (
@@ -121,11 +122,11 @@ function AppCarros () {
           <p>Ano: {c.ano}</p>
           <p>Cor: {c.cor}</p>
 
-          <button onClick={() => deletaCarro(c.id)}>Apagar</button>
-          <button onClick={() => { setIsUpdate(true); setForm(c); }}>
+          <Button onClick={() => deletaCarro(c.id)}>Apagar</Button>
+          <Button onClick={() => { setIsUpdate(true); setForm(c); }}>
             Editar
 
-          </button>
+          </Button>
 
 
         </div>

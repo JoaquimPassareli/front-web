@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import "./App.css";
+import Button from "./components/Button/Index";
 import "./components/PageCarros";
 import { AppCarros } from "./components/PageCarros";
 import "./components/PagePessoas";
@@ -14,8 +15,8 @@ function MainApp () {
   return (
     <>
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <button onClick={() => setPage("pessoas")}>Pessoas</button>
-        <button onClick={() => setPage("carros")}>Carros</button>
+        <Button onClick={() => setPage("pessoas")}>Pessoas</Button>
+        <Button onClick={() => setPage("carros")}>Carros</Button>
       </div>
 
       {page === "pessoas" ? <AppPessoas /> : <AppCarros />}
