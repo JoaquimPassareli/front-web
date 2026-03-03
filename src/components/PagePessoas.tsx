@@ -4,6 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Pessoa } from "../types/TypesPessoas";
 import { emptyPessoa } from "../types/TypesPessoas";
+import "./Input/Index";
+import Input from "./Input/Index";
+
 
 
 
@@ -57,7 +60,11 @@ function AppPessoas () {
   return (
     <>
       <h1>Dados do Usuario</h1>
-
+      <Input name="nome" label="Nome" value={form.nome} onChange={updateForm} />
+      <Input name="idade" label="Idade" type="number" value={form.idade} onChange={updateForm} />
+      <Input name="altura" label="Altura" type="number" step="0.01" value={form.altura} onChange={updateForm} />
+      <Input name="doc" label="Doc" type="number" value={form.doc} onChange={updateForm} />
+      {/*}
       <div className="card">
         <label>Nome</label>
         <input name="nome" placeholder="Nome" value={form.nome} onChange={updateForm} />
@@ -67,7 +74,7 @@ function AppPessoas () {
         <input name="altura" type="number" step="0.01" placeholder="Altura" value={form.altura} onChange={updateForm} />
         <label>Doc</label>
         <input name="doc" type="number" placeholder="Doc" value={form.doc} onChange={updateForm} />
-      </div>
+      </div>*/}
 
       <div className="main-actions">
         {isUpdate ? (
