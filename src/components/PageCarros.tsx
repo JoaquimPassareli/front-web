@@ -4,6 +4,9 @@ import axios from "axios";
 import { useState } from "react";
 import type { Carro } from "../types/TypesCarros";
 import { emptyCarro } from "../types/TypesCarros";
+import "./Input/Index";
+import Input from "./Input/Index";
+
 
 
 function AppCarros () {
@@ -59,37 +62,44 @@ function AppCarros () {
     <>
       <h1>Dados do Veiculo</h1>
 
-      <div className="form-group">
+      <Input name="marca" label="Marca" value={form.marca} onChange={updateForm} />
+      {/*<div className="form-group">
         <label>Marca</label>
         <input name="marca" value={form.marca} onChange={updateForm} />
-      </div>
+      </div>*/}
 
-      <div className="form-group">
+      <Input name="modelo" label="Modelo" value={form.modelo} onChange={updateForm} />
+      {/*<div className="form-group">
         <label>Modelo</label>
         <input name="modelo" value={form.modelo} onChange={updateForm} />
-      </div>
+      </div>*/}
 
-      <div className="form-group">
+
+      <Input name="ano" label="Ano" value={form.ano} onChange={updateForm} />
+      {/*<div className="form-group">
         <label>Ano</label>
         <input name="ano" value={form.ano} onChange={updateForm} />
-      </div>
+      </div>*/}
 
-      <div className="form-group">
+
+      <Input name="cor" label="Cor" value={form.cor} onChange={updateForm} />
+      {/*<div className="form-group">
         <label>Cor</label>
         <input name="cor" value={form.cor} onChange={updateForm} />
-      </div>
-
-      <div className="form-group">
-        {isUpdate && (
-          <>
-            <label>Pessoa Doc:</label>
-            <input name="pessoaDoc" type="number" value={form.pessoaDoc ?? ""} onChange={updateForm} />
-          </>
-        )}
-      </div>
+      </div>*/}
 
 
-      <div className="main-actions">
+      {isUpdate && (
+        //  <>
+        //  <label>Pessoa Doc:</label>
+        //</><input name="pessoaDoc" type="number" value={form.pessoaDoc ?? ""} onChange={updateForm} />
+        //</>
+        <Input name="PessoaDoc" label="Pessoa Doc" value={form.pessoaDoc} onChange={updateForm} />
+      )}
+
+
+
+      <div className="form-actions">
         {isUpdate ? (
 
           <button onClick={() => { updateCarro(); setIsUpdate(false); }}>

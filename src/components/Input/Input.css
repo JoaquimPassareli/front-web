@@ -1,0 +1,14 @@
+.input-group {
+	display: flex;
+	width: 55%;
+	flex-direction: column;
+	color: black;
+	font-family: "monsterrat", sans-serif;
+	border: 1px;
+	border-radius: 4px;
+	margin-top: 15px;
+	label {
+		background-color: #fda500;
+		border-radius: 4px 4px 0 0;
+	}
+}
