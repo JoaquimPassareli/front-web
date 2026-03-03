@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Pessoa } from "../types/TypesPessoas";
 import { emptyPessoa } from "../types/TypesPessoas";
+import Button from "./Button/Index";
 import "./Input/Index";
 import Input from "./Input/Index";
 
@@ -11,6 +12,7 @@ import Input from "./Input/Index";
 
 
 function AppPessoas () {
+  const [buscar, setBuscar] = useState(false);
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
   const [form, setForm] = useState<Pessoa>(emptyPessoa);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -76,67 +78,99 @@ function AppPessoas () {
         <input name="doc" type="number" placeholder="Doc" value={form.doc} onChange={updateForm} />
       </div>*/}
 
-      <div className="main-actions">
+      <div style={{ display: "flex", gap: 5 }}>
+        {isUpdate ? (
+          <Button onClick={() => { updatePessoa(); setIsUpdate(false); }}>
+            Atualizar
+          </Button>
+        ) : (
+          <Button onClick={salvar}>
+            Cadastrar
+          </Button>
+        )}
+
+
+        {buscar && (
+          <Button onClick={() => setBuscar(false)}>
+            Esconder
+          </Button>
+        )}
+        {!buscar && (
+          <Button onClick={() => setBuscar(true)}>
+            Mostrar
+          </Button>
+        )}
+      </div>
+
+      {/*<div className="main-actions">
         {isUpdate ? (
           <button onClick={() => { updatePessoa(); setIsUpdate(false); }}>
             Atualizar
           </button>
         ) : (
           <button onClick={salvar}>Cadastrar</button>
+          
         )}
 
-        <button onClick={buscarTodos}>Buscar</button>
-      </div>
+        </div>*/}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Altura</th>
-            <th>Doc</th>
-            <th>Carros</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          {pessoas.map((p) => (
-            <tr key={p.id}>
-              <td>{p.nome}</td>
-              <td>{p.idade}</td>
-              <td>{p.altura} m</td>
-              <td>{p.doc}</td>
-              <td>
-                {p.carros.length > 0 && (
-                  <>
-                    <p>Carros: </p>
-                    {p.carros.map((c) => (
-                      <p key={c.id}>{c.marca} - {c.modelo}</p>
-                    ))}
-                  </>
-                )}
-              </td>
-              <td>
-                <div style={{
-                  display: "flex",
-                  gap: 5,
 
-                }} >
-
-                  <button onClick={() => { setForm(p); setIsUpdate(true); }}>
-                    Editar
-                  </button>
-                  <button onClick={() => deletaPessoa(p.id ?? 0)}>
-                    Deletar
-                  </button>
-                </div>
-              </td>
-
+      <div style={{ display: buscar ? "block" : "none", }}>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Altura</th>
+              <th>Doc</th>
+              <th>Carros</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {pessoas.map((p) => (
+              <tr key={p.id}>
+                <td>{p.nome}</td>
+                <td>{p.idade}</td>
+                <td>{p.altura} m</td>
+                <td>{p.doc}</td>
+                <td>
+                  {p.carros.length > 0 && (
+                    <>
+                      <p>Carros: </p>
+                      {p.carros.map((c) => (
+                        <p key={c.id}>{c.marca} - {c.modelo}</p>
+                      ))}
+                    </>
+                  )}
+                </td>
+                <td>
+                  <div style={{
+                    display: "flex",
+                    gap: 5,
+
+                  }} >
+
+                    {/*<button onClick={() => { setForm(p); setIsUpdate(true); }}>
+                    Editar
+                  </button>*/}
+
+                    <button onClick={() => { setForm(p); setIsUpdate(true); }}>
+                      Editar
+                    </button>
+                    <button onClick={() => deletaPessoa(p.id ?? 0)}>
+                      Deletar
+                    </button>
+                  </div>
+                </td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div >
 
       {/*       
       {pessoas.map((p) => (
