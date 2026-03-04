@@ -1,3 +1,4 @@
+import type { Endereco } from "../types/TypeEnderecos";
 import type { Carro } from "../types/TypesCarros";
 
 export type Pessoa = {
@@ -7,6 +8,7 @@ export type Pessoa = {
 	altura: number;
 	doc: number;
 	carros: Carro[];
+	enderecos: Endereco[];
 };
 
 export const emptyPessoa: Pessoa = {
@@ -16,4 +18,5 @@ export const emptyPessoa: Pessoa = {
 	altura: 0,
 	doc: 0,
 	carros: [],
+	enderecos: [],
 };

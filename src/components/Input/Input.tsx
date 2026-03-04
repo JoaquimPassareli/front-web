@@ -1,7 +1,7 @@
 import "./Input.css";
 
 type Props = {
-  label: string;
+  label?: string;
   type?: string;
   name: string;
   step?: string;
@@ -15,14 +15,17 @@ const Input = (props: Props) => {
       <label htmlFor={props.name}>{props.label}</label>
       <input
         id={props.name}
+
         name={props.name}
         type={props.type ?? "text"}
         step={props.step ?? undefined}
+        placeholder={props.label}
         value={props.value}
         onChange={props.onChange}
       />
     </div>
   );
 };
+
 
 export default Input;
