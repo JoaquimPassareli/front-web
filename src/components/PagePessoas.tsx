@@ -1,5 +1,3 @@
-export { AppPessoas };
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Pessoa } from "../types/TypesPessoas";
@@ -16,6 +14,7 @@ function AppPessoas () {
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
   const [form, setForm] = useState<Pessoa>(emptyPessoa);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [expandedRow, setExpandedRow] = useState<number | null>(null);
 
   const salvar = async () => {
     try {
@@ -116,8 +115,8 @@ function AppPessoas () {
 
 
 
-      <div style={{ display: buscar ? "block" : "none", }}>
-        <table>
+      <div style={{ display: buscar ? "block" : "none", overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
           <thead>
             <tr>
               <th>Nome</th>
@@ -125,52 +124,64 @@ function AppPessoas () {
               <th>Altura</th>
               <th>Doc</th>
               <th>Carros</th>
+              <th>Endereço</th>
               <th>Ações</th>
             </tr>
           </thead>
 
           <tbody>
-            {pessoas.map((p) => (
-              <tr key={p.id}>
-                <td>{p.nome}</td>
-                <td>{p.idade}</td>
-                <td>{p.altura} m</td>
-                <td>{p.doc}</td>
-                <td>
-                  {p.carros.length > 0 && (
-                    <>
-                      <p>Carros: </p>
-                      {p.carros.map((c) => (
-                        <p key={c.id}>{c.marca} - {c.modelo}</p>
-                      ))}
-                    </>
-                  )}
-                </td>
-                <td>
-                  <div style={{
-                    display: "flex",
-                    gap: 5,
-
-                  }} >
-
-                    {/*<button onClick={() => { setForm(p); setIsUpdate(true); }}>
-                    Editar
-                  </button>*/}
-
-                    <button onClick={() => { setForm(p); setIsUpdate(true); }}>
-                      Editar
-                    </button>
-                    <button onClick={() => deletaPessoa(p.id ?? 0)}>
-                      Deletar
-                    </button>
-                  </div>
-                </td>
-
-              </tr>
-            ))}
+            {pessoas.map((p) => {
+              const isExpanded = expandedRow === p.id;
+              return (
+                <tr
+                  key={p.id}
+                  onClick={() => setExpandedRow(isExpanded ? null : (p.id ?? null))}
+                  style={{ cursor: "pointer", transition: "all 0.2s" }}
+                >
+                  <td>{p.nome}</td>
+                  <td>{p.idade}</td>
+                  <td>{p.altura} m</td>
+                  <td>{p.doc}</td>
+                  <td>
+                    {(p.carros ?? []).length > 0 ? (
+                      isExpanded ? (
+                        p.carros.map((c) => (
+                          <p key={c.id} style={{ margin: "2px 0" }}>{c.marca} - {c.modelo}</p>
+                        ))
+                      ) : (
+                        <span>{p.carros[0].marca} - {p.carros[0].modelo}{p.carros.length > 1 ? ` +${p.carros.length - 1}` : ""}</span>
+                      )
+                    ) : (
+                      <span>—</span>
+                    )}
+                  </td>
+                  <td>
+                    {(p.enderecos ?? []).length > 0 ? (
+                      isExpanded ? (
+                        p.enderecos.map((e) => (
+                          <p key={e.id} style={{ margin: "2px 0" }}>
+                            {e.rua}, {e.numero} - {e.bairro}, {e.cidade} - {e.estado} ({e.cep})
+                          </p>
+                        ))
+                      ) : (
+                        <span>{p.enderecos[0].cidade} - {p.enderecos[0].estado}{p.enderecos.length > 1 ? ` +${p.enderecos.length - 1}` : ""}</span>
+                      )
+                    ) : (
+                      <span>—</span>
+                    )}
+                  </td>
+                  <td>
+                    <div style={{ display: "flex", gap: 5 }}>
+                      <button onClick={(ev) => { ev.stopPropagation(); setForm(p); setIsUpdate(true); }}>Editar</button>
+                      <button onClick={(ev) => { ev.stopPropagation(); deletaPessoa(p.id ?? 0); }}>Deletar</button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-      </div >
+      </div>
 
       {/*       
       {pessoas.map((p) => (
@@ -206,3 +217,6 @@ function AppPessoas () {
     </>
   );
 }
+
+export { AppPessoas };
+
